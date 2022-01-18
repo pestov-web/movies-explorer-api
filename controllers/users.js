@@ -94,7 +94,7 @@ module.exports.login = (req, res, next) => {
         .send(
           {
             name: user.name,
-            about: user.email,
+            email: user.email,
           },
         );
     })
