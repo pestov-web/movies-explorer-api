@@ -1,37 +1,62 @@
-const Card = require('../models/movie');
+const Movie = require('../models/movie');
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
-// получаем все карточки
-module.exports.getCards = (req, res, next) => {
-  Card.find({})
-    .then((cards) => res.send(cards))
+// получаем все фильмы пользователя
+module.exports.getMovies = (req, res, next) => {
+  Movie.find({})
+    .then((movies) => res.send(movies))
     .catch(next);
 };
 
 // удаляем фильм по ид
 module.exports.deleteMovie = (req, res, next) => {
-  Card.findById(req.params._id)
-    .orFail(new NotFoundError('Карточки с таким id не существует'))
-    .then((card) => {
-      if (card.owner.toString() !== req.user._id) {
-        throw new UnauthorizedError('Недостаточно прав для удаления карточки');
+  Movie.findById(req.params._id)
+    .orFail(new NotFoundError('Фильма с таким id не существует'))
+    .then((movie) => {
+      if (movie.owner.toString() !== req.user._id) {
+        throw new UnauthorizedError('Недостаточно прав для удаления Фильма');
       }
-      Card.findByIdAndRemove(req.params._id)
-        .orFail(new NotFoundError('Карточки с таким id не существует'))
-        .then((deletedCard) => res.send(deletedCard))
+      Movie.findByIdAndRemove(req.params._id)
+        .orFail(new NotFoundError('Фильма с таким id не существует'))
+        .then((deletedMovie) => res.send(deletedMovie))
         .catch(next);
     })
     .catch(next);
 };
 
 // Создаем новый фильм
-module.exports.createCard = (req, res, next) => {
-  const { name, link } = req.body;
+module.exports.createMovie = (req, res, next) => {
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+  } = req.body;
 
-  Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.send(card))
+  Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    owner: req.user._id,
+    movieId,
+    nameRU,
+    nameEN,
+  })
+    .then((movie) => res.send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные'));
