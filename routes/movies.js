@@ -12,6 +12,6 @@ movies.get('/', getMovies);
 // создаёт фильм
 movies.post('/', createMovie);
 // удаляет сохранённый фильм по id
-movies.delete('/movieId', validateId, deleteMovie);
+movies.delete('/:movieId', validateId, deleteMovie);
 
 module.exports = movies;
