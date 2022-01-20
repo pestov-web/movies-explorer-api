@@ -66,6 +66,12 @@ module.exports.updateUser = (req, res, next) => {
     },
   )
     .orFail(new NotFoundError('Пользователя не существует'))
+    .catch((err) => {
+      if (err.name === 'MongoError' || err.code === 11000) {
+        throw new UserExistsError('Пользователь с таким email уже зарегистрирован');
+      }
+      next(err);
+    })
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
