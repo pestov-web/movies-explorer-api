@@ -12,13 +12,13 @@ module.exports.getMovies = (req, res, next) => {
 
 // удаляем фильм по ид
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params._id)
+  Movie.findById(req.params.movieId)
     .orFail(new NotFoundError('Фильма с таким id не существует'))
     .then((movie) => {
       if (movie.owner.toString() !== req.user._id) {
         throw new UnauthorizedError('Недостаточно прав для удаления Фильма');
       }
-      Movie.findByIdAndRemove(req.params._id)
+      Movie.findByIdAndRemove(req.params.movieId)
         .orFail(new NotFoundError('Фильма с таким id не существует'))
         .then((deletedMovie) => res.send(deletedMovie))
         .catch(next);
