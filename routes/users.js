@@ -7,8 +7,8 @@ const {
 } = require('../controllers/users');
 
 // возвращает информацию о пользователе (email и имя)
-users.get('/me', getCurrentUser);
+users.get('/users/me', getCurrentUser);
 // обновляет информацию о пользователе (email и имя)
-users.patch('/me', validateUserUpdate, updateUser);
+users.patch('/users/me', validateUserUpdate, updateUser);
 
 module.exports = users;

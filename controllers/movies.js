@@ -2,6 +2,11 @@ const Movie = require('../models/movie');
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const {
+  MOVIE_NOT_FOUND_MSG,
+  DELETE_MOVIE_MESSAGE,
+  BAD_REQUEST_MSG,
+} = require('../utils/constants');
 
 // получаем все фильмы пользователя
 module.exports.getMovies = (req, res, next) => {
@@ -13,15 +18,15 @@ module.exports.getMovies = (req, res, next) => {
 // удаляем фильм по ид
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
-    .orFail(new NotFoundError('Фильма с таким id не существует'))
+    .orFail(new NotFoundError(MOVIE_NOT_FOUND_MSG))
     .then((movie) => {
       if (movie.owner.toString() !== req.user._id) {
-        throw new UnauthorizedError('Недостаточно прав для удаления Фильма');
+        throw new UnauthorizedError(DELETE_MOVIE_MESSAGE);
+      } else {
+        Movie.deleteOne(movie)
+          .then(() => res.send({ message: movie }))
+          .catch(next);
       }
-      Movie.findByIdAndRemove(req.params.movieId)
-        .orFail(new NotFoundError('Фильма с таким id не существует'))
-        .then((deletedMovie) => res.send(deletedMovie))
-        .catch(next);
     })
     .catch(next);
 };
@@ -59,8 +64,9 @@ module.exports.createMovie = (req, res, next) => {
     .then((movie) => res.send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(`Переданы некорректные данные: ${err.message}`));
+        next(new BadRequestError(BAD_REQUEST_MSG));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
