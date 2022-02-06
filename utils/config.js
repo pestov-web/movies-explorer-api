@@ -5,6 +5,7 @@ const LEGAL_CORS = [
   'http://127.0.0.1:3000',
   'https://api.pestov-web.ru',
   'https://pestov-web.ru',
+  'http://localhost:3000',
 ];
 
 module.exports = {
