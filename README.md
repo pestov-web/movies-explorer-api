@@ -1,7 +1,7 @@
 # API для Дипломного проекта BeatFilm.
 
 #### Демонстрация приложения: [https://api2.pestov-web.ru/](https://api2.pestov-web.ru/)
-### Стек приложения
+## Стек приложения
 
 ![JavaScript](https://img.shields.io/badge/-JavaScript-141130?style=flat-square&logo=JavaScript)
 ![Node.js](https://img.shields.io/badge/-Node.js-141130?style=flat-square&logo=Node.js)
@@ -17,7 +17,7 @@
 - JWT
 - ESLint - airbnb
 
-### Директории
+## Директории
 
 `/routes` — папка с файлами роутера.<br>
 `/controllers` — папка с файлами контроллеров пользователя и карточки. <br>
@@ -25,7 +25,7 @@
 `/errors` – папка с модулями ошибок.<br>
 `/middlewares` – папка с мидлварами.<br>
 
-### Работа с приложением
+## Работа с приложением
 `npm run start` — запускает сервер   
 `npm run dev` — запускает сервер с hot-reload
 
