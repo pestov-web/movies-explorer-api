@@ -1,6 +1,6 @@
 # API для Дипломного проекта BeatFilm.
 
-#### Демонстрация приложения: [https://api.pestov-web.ru/](https://api.pestov-web.ru/)
+#### Демонстрация приложения: [https://api1.pestov-web.ru/](https://api1.pestov-web.ru/)
 ## Стек приложения
 
 ![JavaScript](https://img.shields.io/badge/-JavaScript-141130?style=flat-square&logo=JavaScript)
