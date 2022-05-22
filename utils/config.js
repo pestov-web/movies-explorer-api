@@ -1,4 +1,4 @@
-const DEV_DB_URL = 'mongodb://localhost:27017/moviesdb';
+const DEV_DB_URL = 'mongodb://127.0.0.1:27017/moviesdb';
 const API_PORT = 3000;
 const DEV_JWT_SECRET = 'dev-secret';
 const LEGAL_CORS = [
