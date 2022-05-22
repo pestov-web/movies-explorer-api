@@ -4,7 +4,7 @@ const DEV_JWT_SECRET = 'dev-secret';
 const LEGAL_CORS = [
   'http://127.0.0.1:3000',
   'https://api1.pestov-web.ru',
-  'https://pestov-web.ru',
+  'https://movies.pestov-web.ru',
   'http://localhost:3000',
 ];
 
